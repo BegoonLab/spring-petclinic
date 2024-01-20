@@ -60,6 +60,10 @@ project {
 object Build : BuildType({
     name = "Build"
 
+    params {
+        param("env.JDK_17_0_x64", "")
+    }
+
     vcs {
         root(DslContext.settingsRoot)
     }
