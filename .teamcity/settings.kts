@@ -79,10 +79,7 @@ object Build : BuildType({
 
     triggers {
         vcs {
-            branchFilter = """
-                +:*
-                +:refs/pull/*/merge
-            """.trimIndent()
+            branchFilter = "+:refs/pull/*/merge"
         }
     }
 
