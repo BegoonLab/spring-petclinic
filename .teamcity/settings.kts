@@ -1,4 +1,5 @@
 import jetbrains.buildServer.configs.kotlin.*
+import jetbrains.buildServer.configs.kotlin.buildFeatures.commitStatusPublisher
 import jetbrains.buildServer.configs.kotlin.buildFeatures.perfmon
 import jetbrains.buildServer.configs.kotlin.buildSteps.maven
 import jetbrains.buildServer.configs.kotlin.projectFeatures.awsConnection
@@ -89,6 +90,15 @@ object Build : BuildType({
 
     features {
         perfmon {
+        }
+        commitStatusPublisher {
+            vcsRootExtId = "${DslContext.settingsRoot.id}"
+            publisher = github {
+                githubUrl = "https://api.github.com"
+                authType = personalToken {
+                    token = "credentialsJSON:3861c078-daa6-418f-8861-9d307fcc0159"
+                }
+            }
         }
     }
 })
