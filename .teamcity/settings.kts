@@ -74,8 +74,6 @@ project {
 object Build : BuildType({
     name = "Build"
 
-    artifactRules = "+:target/*.jar"
-
     params {
         param("env.JAVA_HOME", "%env.JDK_17_0%")
     }
