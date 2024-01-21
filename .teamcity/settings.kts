@@ -63,7 +63,6 @@ object Build : BuildType({
 
     params {
         param("env.JAVA_HOME", "%env.JDK_17_0%")
-        param("env.JDK_17_0", "")
     }
 
     vcs {
@@ -81,10 +80,6 @@ object Build : BuildType({
 
     triggers {
         vcs {
-            branchFilter = """
-                +:refs/pull/*/merge
-                +:refs/pull/*/head
-            """.trimIndent()
         }
     }
 
