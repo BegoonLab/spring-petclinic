@@ -130,6 +130,8 @@ object Build : BuildType({
 object DeployToAws : BuildType({
     name = "Deploy to AWS"
 
+    artifactRules = "+:target/*.jar"
+
     params {
         param("env.JAVA_HOME", "%env.JDK_17_0%")
     }
