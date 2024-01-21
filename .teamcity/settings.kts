@@ -130,6 +130,10 @@ object Build : BuildType({
 object DeployToAws : BuildType({
     name = "Deploy to AWS"
 
+    params {
+        param("env.JAVA_HOME", "%env.JDK_17_0%")
+    }
+
     vcs {
         root(HttpsGithubComBegoonLabSpringPetclinicRefsHeadsProd)
     }
