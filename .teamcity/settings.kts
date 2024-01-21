@@ -141,7 +141,7 @@ object DeployToAws : BuildType({
     steps {
         maven {
             id = "Maven2"
-            goals = "clean package"
+            goals = "package"
             runnerArgs = "-Dmaven.test.failure.ignore=true"
             jdkHome = "%env.JDK_17_0%"
         }
