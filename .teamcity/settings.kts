@@ -4,6 +4,7 @@ import jetbrains.buildServer.configs.kotlin.buildFeatures.perfmon
 import jetbrains.buildServer.configs.kotlin.buildSteps.maven
 import jetbrains.buildServer.configs.kotlin.projectFeatures.awsConnection
 import jetbrains.buildServer.configs.kotlin.projectFeatures.githubIssues
+import jetbrains.buildServer.configs.kotlin.projectFeatures.slackConnection
 import jetbrains.buildServer.configs.kotlin.triggers.vcs
 
 /*
@@ -54,6 +55,13 @@ project {
                 accessToken = "credentialsJSON:c5d3dc2b-7ef8-436e-bc26-987765081818"
             }
             param("tokenId", "")
+        }
+        slackConnection {
+            id = "PROJECT_EXT_4"
+            displayName = "Slack"
+            botToken = "credentialsJSON:c1365624-2587-4092-818a-dc2901de6974"
+            clientId = "6518260057585.6491182076119"
+            clientSecret = "credentialsJSON:e6ac3b80-38c9-4c14-8059-55c6a37278df"
         }
     }
 }
