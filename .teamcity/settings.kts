@@ -1,4 +1,5 @@
 import jetbrains.buildServer.configs.kotlin.*
+import jetbrains.buildServer.configs.kotlin.buildFeatures.commitStatusPublisher
 import jetbrains.buildServer.configs.kotlin.buildFeatures.perfmon
 import jetbrains.buildServer.configs.kotlin.buildSteps.maven
 import jetbrains.buildServer.configs.kotlin.projectFeatures.awsConnection
@@ -62,6 +63,7 @@ object Build : BuildType({
 
     params {
         param("env.JAVA_HOME", "%env.JDK_17_0%")
+        param("env.JDK_17_0", "")
     }
 
     vcs {
@@ -79,12 +81,24 @@ object Build : BuildType({
 
     triggers {
         vcs {
-            branchFilter = "+:refs/pull/*/merge"
+            branchFilter = """
+                +:refs/pull/*/merge
+                +:refs/pull/*/head
+            """.trimIndent()
         }
     }
 
     features {
         perfmon {
+        }
+        commitStatusPublisher {
+            vcsRootExtId = "${DslContext.settingsRoot.id}"
+            publisher = github {
+                githubUrl = "https://api.github.com"
+                authType = personalToken {
+                    token = "credentialsJSON:3861c078-daa6-418f-8861-9d307fcc0159"
+                }
+            }
         }
     }
 })
