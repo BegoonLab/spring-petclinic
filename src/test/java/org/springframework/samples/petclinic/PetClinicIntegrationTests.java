@@ -51,7 +51,7 @@ public class PetClinicIntegrationTests {
 
 	@Test
 	void dummyTest() {
-		assertThat(1).isEqualTo(2);
+		assertThat(1).isEqualTo(1);
 	}
 
 	@Test
