@@ -62,6 +62,7 @@ object Build : BuildType({
 
     params {
         param("env.JAVA_HOME", "%env.JDK_17_0%")
+        param("env.JDK_17_0", "")
     }
 
     vcs {
