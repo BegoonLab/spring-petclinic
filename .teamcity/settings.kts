@@ -151,6 +151,20 @@ object DeployToAws : BuildType({
     features {
         perfmon {
         }
+        notifications {
+            notifierSettings = slackNotifier {
+                connection = "PROJECT_EXT_4"
+                sendTo = "#teamcity"
+                messageFormat = simpleMessageFormat()
+            }
+            buildStarted = true
+            buildFailedToStart = true
+            buildFailed = true
+            buildFinishedSuccessfully = true
+            firstBuildErrorOccurs = true
+            buildProbablyHanging = true
+            queuedBuildRequiresApproval = true
+        }
     }
 })
 
