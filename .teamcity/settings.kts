@@ -171,6 +171,13 @@ object DeployToAws : BuildType({
             queuedBuildRequiresApproval = true
         }
     }
+
+    dependencies {
+        snapshot(Build) {
+            onDependencyFailure = FailureAction.CANCEL
+            onDependencyCancel = FailureAction.CANCEL
+        }
+    }
 })
 
 object HttpsGithubComBegoonLabSpringPetclinicRefsHeadsProd : GitVcsRoot({
