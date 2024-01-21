@@ -1,9 +1,11 @@
 import jetbrains.buildServer.configs.kotlin.*
 import jetbrains.buildServer.configs.kotlin.buildFeatures.commitStatusPublisher
+import jetbrains.buildServer.configs.kotlin.buildFeatures.notifications
 import jetbrains.buildServer.configs.kotlin.buildFeatures.perfmon
 import jetbrains.buildServer.configs.kotlin.buildSteps.maven
 import jetbrains.buildServer.configs.kotlin.projectFeatures.awsConnection
 import jetbrains.buildServer.configs.kotlin.projectFeatures.githubIssues
+import jetbrains.buildServer.configs.kotlin.projectFeatures.slackConnection
 import jetbrains.buildServer.configs.kotlin.triggers.vcs
 
 /*
@@ -55,6 +57,13 @@ project {
             }
             param("tokenId", "")
         }
+        slackConnection {
+            id = "PROJECT_EXT_4"
+            displayName = "Slack"
+            botToken = "credentialsJSON:c1365624-2587-4092-818a-dc2901de6974"
+            clientId = "6518260057585.6491182076119"
+            clientSecret = "credentialsJSON:e6ac3b80-38c9-4c14-8059-55c6a37278df"
+        }
     }
 }
 
@@ -94,6 +103,20 @@ object Build : BuildType({
                     token = "credentialsJSON:3861c078-daa6-418f-8861-9d307fcc0159"
                 }
             }
+        }
+        notifications {
+            notifierSettings = slackNotifier {
+                connection = "PROJECT_EXT_4"
+                sendTo = "#teamcity"
+                messageFormat = simpleMessageFormat()
+            }
+            buildStarted = true
+            buildFailedToStart = true
+            buildFailed = true
+            buildFinishedSuccessfully = true
+            firstBuildErrorOccurs = true
+            buildProbablyHanging = true
+            queuedBuildRequiresApproval = true
         }
     }
 })
