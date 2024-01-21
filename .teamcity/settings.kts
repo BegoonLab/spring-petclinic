@@ -145,6 +145,7 @@ object DeployToAws : BuildType({
 
     triggers {
         vcs {
+            branchFilter = "+:prod"
         }
     }
 
