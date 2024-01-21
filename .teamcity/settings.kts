@@ -134,6 +134,14 @@ object DeployToAws : BuildType({
         root(HttpsGithubComBegoonLabSpringPetclinicRefsHeadsProd)
     }
 
+    steps {
+        maven {
+            id = "Maven2"
+            goals = "clean test"
+            runnerArgs = "-Dmaven.test.failure.ignore=true"
+        }
+    }
+
     triggers {
         vcs {
         }
