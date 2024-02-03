@@ -35,6 +35,7 @@ version = "2023.11"
 project {
 
     buildType(Build)
+    buildType(DeployToAws)
 
     features {
         awsConnection {
@@ -117,4 +118,12 @@ object Build : BuildType({
             queuedBuildRequiresApproval = true
         }
     }
+})
+
+object DeployToAws : BuildType({
+    name = "Deploy to AWS"
+
+    enablePersonalBuilds = false
+    type = BuildTypeSettings.Type.DEPLOYMENT
+    maxRunningBuilds = 1
 })
