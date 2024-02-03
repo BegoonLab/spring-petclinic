@@ -7,7 +7,6 @@ import jetbrains.buildServer.configs.kotlin.projectFeatures.awsConnection
 import jetbrains.buildServer.configs.kotlin.projectFeatures.githubIssues
 import jetbrains.buildServer.configs.kotlin.projectFeatures.slackConnection
 import jetbrains.buildServer.configs.kotlin.triggers.vcs
-import jetbrains.buildServer.configs.kotlin.vcs.GitVcsRoot
 
 /*
 The settings script is an entry point for defining a TeamCity
@@ -34,8 +33,6 @@ To debug in IntelliJ Idea, open the 'Maven Projects' tool window (View
 version = "2023.11"
 
 project {
-
-    vcsRoot(HttpsGithubComBegoonLabSpringPetclinicRefsHeadsProd)
 
     buildType(Build)
 
@@ -121,16 +118,5 @@ object Build : BuildType({
             buildProbablyHanging = true
             queuedBuildRequiresApproval = true
         }
-    }
-})
-
-object HttpsGithubComBegoonLabSpringPetclinicRefsHeadsProd : GitVcsRoot({
-    name = "https://github.com/BegoonLab/spring-petclinic#refs/heads/prod"
-    url = "https://github.com/BegoonLab/spring-petclinic"
-    branch = "refs/heads/prod"
-    branchSpec = "refs/heads/*"
-    authMethod = password {
-        userName = "alexbegoon"
-        password = "credentialsJSON:3861c078-daa6-418f-8861-9d307fcc0159"
     }
 })
