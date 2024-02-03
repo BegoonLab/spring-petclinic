@@ -2,7 +2,9 @@ import jetbrains.buildServer.configs.kotlin.*
 import jetbrains.buildServer.configs.kotlin.buildFeatures.commitStatusPublisher
 import jetbrains.buildServer.configs.kotlin.buildFeatures.notifications
 import jetbrains.buildServer.configs.kotlin.buildFeatures.perfmon
+import jetbrains.buildServer.configs.kotlin.buildSteps.SSHUpload
 import jetbrains.buildServer.configs.kotlin.buildSteps.maven
+import jetbrains.buildServer.configs.kotlin.buildSteps.sshUpload
 import jetbrains.buildServer.configs.kotlin.projectFeatures.awsConnection
 import jetbrains.buildServer.configs.kotlin.projectFeatures.githubIssues
 import jetbrains.buildServer.configs.kotlin.projectFeatures.slackConnection
@@ -126,6 +128,19 @@ object DeployToAws : BuildType({
     enablePersonalBuilds = false
     type = BuildTypeSettings.Type.DEPLOYMENT
     maxRunningBuilds = 1
+
+    steps {
+        sshUpload {
+            id = "ssh_deploy_runner"
+            transportProtocol = SSHUpload.TransportProtocol.SCP
+            sourcePath = "target/*.jar"
+            targetUrl = "ec2-3-81-69-171.compute-1.amazonaws.com:/home/ubuntu/pet-clinic"
+            authMethod = uploadedKey {
+                username = "ubuntu"
+                key = "AmazonBegoonLab.pem"
+            }
+        }
+    }
 
     dependencies {
         dependency(Build) {
