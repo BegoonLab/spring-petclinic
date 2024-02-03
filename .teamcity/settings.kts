@@ -126,4 +126,9 @@ object DeployToAws : BuildType({
     enablePersonalBuilds = false
     type = BuildTypeSettings.Type.DEPLOYMENT
     maxRunningBuilds = 1
+
+    dependencies {
+        snapshot(Build) {
+        }
+    }
 })
