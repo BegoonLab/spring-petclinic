@@ -164,6 +164,15 @@ object DeployToAws : BuildType({
             buildProbablyHanging = true
             queuedBuildRequiresApproval = true
         }
+        commitStatusPublisher {
+            vcsRootExtId = "${DslContext.settingsRoot.id}"
+            publisher = github {
+                githubUrl = "https://api.github.com"
+                authType = personalToken {
+                    token = "credentialsJSON:3861c078-daa6-418f-8861-9d307fcc0159"
+                }
+            }
+        }
     }
 
     dependencies {
