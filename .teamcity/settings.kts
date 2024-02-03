@@ -128,7 +128,13 @@ object DeployToAws : BuildType({
     maxRunningBuilds = 1
 
     dependencies {
-        snapshot(Build) {
+        dependency(Build) {
+            snapshot {
+            }
+
+            artifacts {
+                artifactRules = "+:target/*.jar"
+            }
         }
     }
 })
