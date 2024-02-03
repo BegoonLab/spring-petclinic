@@ -38,7 +38,6 @@ project {
     vcsRoot(HttpsGithubComBegoonLabSpringPetclinicRefsHeadsProd)
 
     buildType(Build)
-    buildType(DeployToAws)
 
     features {
         awsConnection {
@@ -121,70 +120,6 @@ object Build : BuildType({
             firstBuildErrorOccurs = true
             buildProbablyHanging = true
             queuedBuildRequiresApproval = true
-        }
-    }
-})
-
-object DeployToAws : BuildType({
-    name = "Deploy to AWS"
-
-    artifactRules = "+:target/*.jar"
-
-    params {
-        param("env.JAVA_HOME", "%env.JDK_17_0%")
-    }
-
-    vcs {
-        root(HttpsGithubComBegoonLabSpringPetclinicRefsHeadsProd)
-    }
-
-    steps {
-        maven {
-            id = "Maven2"
-            goals = "package"
-            runnerArgs = "-Dmaven.test.failure.ignore=true"
-            jdkHome = "%env.JDK_17_0%"
-        }
-    }
-
-    triggers {
-        vcs {
-            branchFilter = "+:prod"
-        }
-    }
-
-    features {
-        perfmon {
-        }
-        notifications {
-            notifierSettings = slackNotifier {
-                connection = "PROJECT_EXT_4"
-                sendTo = "#teamcity"
-                messageFormat = simpleMessageFormat()
-            }
-            buildStarted = true
-            buildFailedToStart = true
-            buildFailed = true
-            buildFinishedSuccessfully = true
-            firstBuildErrorOccurs = true
-            buildProbablyHanging = true
-            queuedBuildRequiresApproval = true
-        }
-        commitStatusPublisher {
-            vcsRootExtId = "${HttpsGithubComBegoonLabSpringPetclinicRefsHeadsProd.id}"
-            publisher = github {
-                githubUrl = "https://api.github.com"
-                authType = personalToken {
-                    token = "credentialsJSON:3861c078-daa6-418f-8861-9d307fcc0159"
-                }
-            }
-        }
-    }
-
-    dependencies {
-        snapshot(Build) {
-            onDependencyFailure = FailureAction.CANCEL
-            onDependencyCancel = FailureAction.CANCEL
         }
     }
 })
