@@ -137,7 +137,7 @@ object DeployToAws : BuildType({
         sshUpload {
             id = "ssh_deploy_runner"
             transportProtocol = SSHUpload.TransportProtocol.SCP
-            sourcePath = "*.jar"
+            sourcePath = "**/*.jar"
             targetUrl = "ec2-3-81-69-171.compute-1.amazonaws.com:/home/ubuntu/pet-clinic"
             authMethod = uploadedKey {
                 username = "ubuntu"
