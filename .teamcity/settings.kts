@@ -75,6 +75,10 @@ object Build : BuildType({
 
     artifactRules = "+:target/*.jar"
 
+    params {
+        param("env.JDK_21_0", "")
+    }
+
     vcs {
         root(DslContext.settingsRoot)
     }
