@@ -138,10 +138,10 @@ object DeployToAws : BuildType({
             id = "ssh_deploy_runner"
             transportProtocol = SSHUpload.TransportProtocol.SCP
             sourcePath = "*.jar"
-            targetUrl = "ec2-3-81-69-171.compute-1.amazonaws.com:/home/ubuntu/pet-clinic"
+            targetUrl = "ec2-34-253-194-80.eu-west-1.compute.amazonaws.com:/home/ubuntu/pet-clinic"
             authMethod = uploadedKey {
                 username = "ubuntu"
-                key = "AmazonBegoonLab.pem"
+                key = "teamcity.pem"
             }
         }
     }
