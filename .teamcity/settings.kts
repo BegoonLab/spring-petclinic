@@ -181,7 +181,7 @@ object DeployToAws : BuildType({
             }
 
             artifacts {
-                artifactRules = "+:target/*.jar"
+                artifactRules = "+:*.jar"
             }
         }
     }
