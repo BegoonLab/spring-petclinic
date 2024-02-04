@@ -4,6 +4,7 @@ import jetbrains.buildServer.configs.kotlin.buildFeatures.notifications
 import jetbrains.buildServer.configs.kotlin.buildFeatures.perfmon
 import jetbrains.buildServer.configs.kotlin.buildSteps.SSHUpload
 import jetbrains.buildServer.configs.kotlin.buildSteps.maven
+import jetbrains.buildServer.configs.kotlin.buildSteps.sshExec
 import jetbrains.buildServer.configs.kotlin.buildSteps.sshUpload
 import jetbrains.buildServer.configs.kotlin.projectFeatures.awsConnection
 import jetbrains.buildServer.configs.kotlin.projectFeatures.githubIssues
@@ -139,6 +140,20 @@ object DeployToAws : BuildType({
             transportProtocol = SSHUpload.TransportProtocol.SCP
             sourcePath = "*.jar"
             targetUrl = "ec2-34-253-194-80.eu-west-1.compute.amazonaws.com:/home/ubuntu/pet-clinic"
+            authMethod = uploadedKey {
+                username = "ubuntu"
+                key = "teamcity.pem"
+            }
+        }
+        sshExec {
+            name = "Deploy"
+            id = "Deploy"
+            commands = """
+                cd /home/ubuntu/pet-clinic
+                pkill -f 'java -jar'
+                nohup java -jar *.jar > /dev/null 2>&1 &
+            """.trimIndent()
+            targetUrl = "ec2-34-253-194-80.eu-west-1.compute.amazonaws.com"
             authMethod = uploadedKey {
                 username = "ubuntu"
                 key = "teamcity.pem"
