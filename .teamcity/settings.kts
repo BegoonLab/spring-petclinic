@@ -157,6 +157,15 @@ object DeployToAws : BuildType({
         }
     }
 
+    triggers {
+        vcs {
+            branchFilter = """
+                +:<default>
+                +:prod
+            """.trimIndent()
+        }
+    }
+
     features {
         notifications {
             notifierSettings = slackNotifier {
