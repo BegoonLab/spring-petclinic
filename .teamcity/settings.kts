@@ -148,7 +148,7 @@ object DeployToAws : BuildType({
         sshExec {
             name = "Deploy"
             id = "Deploy"
-            commands = "cd /home/ubuntu/pet-clinic && pkill -f 'java -jar' && nohup java -jar *.jar > /dev/null 2>&1 &"
+            commands = "sh /home/ubuntu/deploy.sh"
             targetUrl = "ec2-34-253-194-80.eu-west-1.compute.amazonaws.com"
             authMethod = uploadedKey {
                 username = "ubuntu"
