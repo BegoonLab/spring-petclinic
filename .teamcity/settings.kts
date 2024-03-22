@@ -10,6 +10,7 @@ import jetbrains.buildServer.configs.kotlin.projectFeatures.awsConnection
 import jetbrains.buildServer.configs.kotlin.projectFeatures.githubIssues
 import jetbrains.buildServer.configs.kotlin.projectFeatures.slackConnection
 import jetbrains.buildServer.configs.kotlin.triggers.vcs
+import jetbrains.buildServer.configs.kotlin.vcs.GitVcsRoot
 
 /*
 The settings script is an entry point for defining a TeamCity
@@ -36,6 +37,8 @@ To debug in IntelliJ Idea, open the 'Maven Projects' tool window (View
 version = "2023.11"
 
 project {
+
+    vcsRoot(HttpsGithubComBegoonLabSpringPetclinicRefsHeadsDev1)
 
     buildType(Build)
     buildType(DeployToAws)
@@ -77,7 +80,7 @@ object Build : BuildType({
     artifactRules = "+:target/*.jar"
 
     vcs {
-        root(DslContext.settingsRoot)
+        root(HttpsGithubComBegoonLabSpringPetclinicRefsHeadsDev1)
     }
 
     steps {
@@ -199,5 +202,16 @@ object DeployToAws : BuildType({
                 artifactRules = "+:*.jar"
             }
         }
+    }
+})
+
+object HttpsGithubComBegoonLabSpringPetclinicRefsHeadsDev1 : GitVcsRoot({
+    name = "https://github.com/BegoonLab/spring-petclinic#refs/heads/dev (1)"
+    url = "https://github.com/BegoonLab/spring-petclinic"
+    branch = "refs/heads/dev"
+    branchSpec = "refs/heads/*"
+    authMethod = password {
+        userName = "alexbegoon"
+        password = "credentialsJSON:3861c078-daa6-418f-8861-9d307fcc0159"
     }
 })
